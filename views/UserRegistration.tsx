@@ -1,23 +1,21 @@
 import React from 'react';
 import {View, Button, TextInput, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createUser} from '../api/user';
 
 export default class UserRegistration extends React.Component {
   state = {
     username: '',
     password: '',
-    email: '',
-    phone_number: '',
   };
   onChangeText = (key: string, val: string) => {
     this.setState({[key]: val});
   };
   signUp = async () => {
-    const {username, password, email, phone_number} = this.state;
+    const {username, password} = this.state;
+    const fcmtoken = await AsyncStorage.getItem('fcmtoken');
     try {
-      console.log(username, password, email, phone_number);
-
-      // here place your signup logic
-      console.log('user successfully signed up!: ');
+      await createUser(username, password, fcmtoken);
     } catch (err) {
       console.log('error signing up: ', err);
     }
