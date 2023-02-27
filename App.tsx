@@ -5,26 +5,15 @@
  * @format
  */
 
-import React, {useState, useEffect} from 'react';
-import {
-  requestUserPermission,
-  notificationListener,
-} from './helpers/pushnatification_helper';
+import React, {useEffect} from 'react';
+import {requestUserPermission} from './helpers/pushnotification';
 
 import {AppNavigator} from './app.navigator';
 
 function App(): JSX.Element {
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     requestUserPermission();
-    notificationListener();
-    setLoading(false);
   }, []);
-
-  if (loading) {
-    return <></>;
-  }
 
   return (
     <>

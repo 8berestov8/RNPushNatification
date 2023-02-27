@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:779234448140:android:c6415b6fb49963b2ac2f29",
+        "mobilesdk_app_id": "1:779234448140:android:4d77d28c9d9f4e40ac2f29",
         "android_client_info": {
           "package_name": "com.rnpushnatification"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "779234448140-jt9pv0iaumgt8fc5sukhshu9ajotlbia.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "779234448140-39681ibblumgkioa1qf1qutrlvkvhr6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.RNPushNatification"
+              }
             }
           ]
         }

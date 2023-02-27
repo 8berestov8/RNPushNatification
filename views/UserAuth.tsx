@@ -1,25 +1,27 @@
 import React from 'react';
-import {View, Button, TextInput, StyleSheet} from 'react-native';
+import {View, Button, TextInput, StyleSheet, Text} from 'react-native';
+import {authUser} from '../api/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class UserRegistration extends React.Component {
+export default class UserAuth extends React.Component {
   state = {
     username: '',
     password: '',
-    email: '',
-    phone_number: '',
   };
   onChangeText = (key: string, val: string) => {
     this.setState({[key]: val});
   };
-  signUp = async () => {
-    const {username, password, email, phone_number} = this.state;
+  signIn = async () => {
+    const {username, password} = this.state;
     try {
-      console.log(username, password, email, phone_number);
-
-      // here place your signup logic
-      console.log('user successfully signed up!: ');
+      await authUser(username, password).then(user => {
+        if (user) {
+          AsyncStorage.setItem('user', JSON.stringify(user));
+          this.props.navigation.replace('Home');
+        }
+      });
     } catch (err) {
-      console.log('error signing up: ', err);
+      console.error('error signing: ', err);
     }
   };
 
@@ -42,7 +44,17 @@ export default class UserRegistration extends React.Component {
           onChangeText={val => this.onChangeText('password', val)}
         />
         <View style={styles.button_box}>
-          <Button title="Sign Up" onPress={this.signUp} />
+          <Button title="Sign In" onPress={this.signIn} color="#f18484" />
+        </View>
+        <View style={styles.singup_box}>
+          <Text style={{marginEnd: 20}}>Create account?</Text>
+          <Button
+            title="Sign Up"
+            color="#f18484"
+            onPress={() => {
+              this.props.navigation.navigate('Registration');
+            }}
+          />
         </View>
       </View>
     );
@@ -55,11 +67,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 10,
     padding: 8,
-    color: 'gray',
+    color: '#f18484',
     borderRadius: 15,
     fontSize: 18,
     fontWeight: '500',
-    borderColor: 'gray',
+    borderColor: '#f18484',
     borderWidth: 2,
   },
   container: {
@@ -67,6 +79,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 100,
+  },
+  singup_box: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    marginTop: 20,
   },
   button_box: {
     width: 350,

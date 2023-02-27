@@ -1,5 +1,12 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Platform} from 'react-native';
+import {PermissionsAndroid} from 'react-native';
+import notifee from '@notifee/react-native';
+
+if (Platform.OS === 'android') {
+  PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+}
 
 export async function requestUserPermission() {
   const authStatus = await messaging().requestPermission();
@@ -29,30 +36,27 @@ async function getFCMtoken() {
   }
 }
 
-export const notificationListener = () => {
-  messaging().onNotificationOpenedApp(remoteMessage => {
-    console.log(
-      'Notification caused app to open from background state:',
-      remoteMessage.notification,
-    );
-  });
+class NatificationService {
+  static displayNotification = async (titel, body) => {
+    // Create a channel (required for Android)
+    const channelId = await notifee.createChannel({
+      id: 'testaufgabe-715e5',
+      name: 'TestAufgabe',
+    });
 
-  // Quiet and Background State -> Check whether an initial notification is available
-  messaging()
-    .getInitialNotification()
-    .then(remoteMessage => {
-      if (remoteMessage) {
-        console.log(
-          'Notification caused app to open from quit state:',
-          remoteMessage.notification,
-        );
-      }
-    })
-    .catch(error => console.log('failed', error));
+    // Display a notification
+    await notifee.displayNotification({
+      title: titel,
+      body: body,
+      android: {
+        channelId,
+        asForegroundService: true,
+        pressAction: {
+          id: 'default',
+        },
+      },
+    });
+  };
+}
 
-  // Foreground State
-  const unsubscribe = messaging().onMessage(async remoteMessage => {
-    console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
-  });
-  return unsubscribe;
-};
+export default NatificationService;

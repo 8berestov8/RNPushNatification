@@ -11,6 +11,7 @@ export default {
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
         'Access-Control-Allow-Headers':
           'Content-Type, X-Auth-Token, Origin, Authorization',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'content-type': 'application/x-www-form-urlencoded',
         Accept: 'application/json',
       },
