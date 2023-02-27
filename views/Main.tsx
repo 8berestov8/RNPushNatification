@@ -7,8 +7,7 @@ export const MainScreen = () => {
     <>
       <SafeAreaView style={styles.container}>
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>Basic CardView Example</Text>
-          <Text style={styles.description}>Basic CardView Example</Text>
+          <Text style={styles.sectionTitle}>Main</Text>
         </Card>
       </SafeAreaView>
     </>
@@ -23,11 +22,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: '600',
-    color: 'white',
-  },
-  description: {
-    fontSize: 16,
     fontWeight: '600',
     color: 'white',
   },

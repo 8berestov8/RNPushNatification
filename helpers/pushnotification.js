@@ -37,23 +37,20 @@ async function getFCMtoken() {
 }
 
 class NatificationService {
-  static displayNotification = async (titel, body) => {
-    // Create a channel (required for Android)
+  static displayNotification = async (title, body, id) => {
     const channelId = await notifee.createChannel({
-      id: 'testaufgabe-715e5',
-      name: 'TestAufgabe',
+      id: 'default',
+      name: 'Default Channel',
     });
 
-    // Display a notification
+    await notifee.requestPermission();
+
     await notifee.displayNotification({
-      title: titel,
+      id: id,
+      title: title,
       body: body,
       android: {
         channelId,
-        asForegroundService: true,
-        pressAction: {
-          id: 'default',
-        },
       },
     });
   };

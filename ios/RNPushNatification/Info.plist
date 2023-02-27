@@ -14,6 +14,10 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -50,14 +54,6 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-			<string>fonts/FontAwesome.ttf</string>
-			<string>fonts/Ionicons.ttf</string>
-			<string>fonts/Foundation.ttf</string>
-			<string>fonts/MaterialCommunityIcons.ttf</string>
-			<string>fonts/MaterialIcons.ttf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

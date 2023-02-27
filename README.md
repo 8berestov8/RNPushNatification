@@ -3,13 +3,13 @@
 ## Installation
 
 ```sh
-git clone https://github.com/8berestov8/RNPushNatification.git
+git clone https://github.com/8berestov8/RNPushNotification.git
 ```
 
 Install the dependencies and devDependencies.
 
 ```sh
-cd RNPushNatification
+cd RNPushNotification
 yarn install
 ```
 
@@ -20,6 +20,8 @@ yarn start
 yarn android
 yarn ios
 ```
+
+Notifications for iOS do not work on the emulator.
 
 MIT
 

@@ -10,7 +10,6 @@ import {NotificationScreen} from './views/Notification';
 import {navigationRef, reset} from './RootNavigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import messaging from '@react-native-firebase/messaging';
-import NatificationService from './helpers/pushnotification';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -56,10 +55,7 @@ function Home() {
     // Foreground State
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
-      NatificationService.displayNotification(
-        remoteMessage.notification.body,
-        remoteMessage.notification.title,
-      );
+      navigation.navigate(remoteMessage.data.type);
     });
     setLoading(false);
     return unsubscribe;
@@ -78,16 +74,14 @@ function Home() {
           let iconName;
 
           if (route.name === 'Main') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'ios-list' : 'ios-list-outline';
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Notification') {
+            iconName = focused ? 'notifications' : 'notifications-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#f18484',
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Main" component={MainScreen} />
